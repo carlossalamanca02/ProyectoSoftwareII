@@ -1,0 +1,27 @@
+#barra{
+    background-color: #3D3C3A ;
+    height: 100%;
+}
+
+.nav-link{
+    color: white;
+}
+.active{
+    color: #ECC72F;
+}
+.fa{
+    color: white;
+}
+#contenedorUsuario{
+    background-color: #ECC72F;
+    filter: drop-shadow(5px 5px 10px #444);
+}
+#contenedorLogo{
+    box-shadow: 2px 2px 10px #666;
+}
+#contenedorCredenciales{
+    box-shadow: 2px 2px 10px #666;
+}
+th{
+    text-align: center;
+}

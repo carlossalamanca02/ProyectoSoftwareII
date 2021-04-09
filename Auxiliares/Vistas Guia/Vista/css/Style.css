@@ -1,0 +1,23 @@
+#login{
+    background-image: url("../icon/login.jpg");
+    backdrop-filter: blur(5px);
+}
+#conlog{
+    background: rgba(24, 22, 21,0.8);
+    color: white;
+}
+#primertitulo{
+    text-align: center;
+    color: black;
+    font-family: "Arial Rounded MT Bold";
+}
+.fa{
+    color: black;
+}
+img{
+    width: 500px;
+    height: 250px;
+}
+input{
+    width: 35px;
+}
