@@ -20,13 +20,13 @@
                       <div class="form-group col mb-3">
                           
                           <div class="field">
-                            <%= f.email_field :email, autofocus: true, autocomplete: "code",class:"form-control form-control-lg col mb-3", id:"codigoUsuario", placeholder:"Codigo" %>
+                            <%= f.text_field :id, autofocus: true, autocomplete: "code",class:"form-control form-control-lg col mb-3", id:"codigoUsuario", placeholder:"Codigo" %>
                           </div>
                           <div class="field">
-                            <%= f.email_field :email, autofocus: true, autocomplete: "name",class:"form-control form-control-lg col mb-3", id:"nombreUsuario", placeholder:"Nombre" %>
+                            <%= f.text_field :name, autofocus: true, autocomplete: "name",class:"form-control form-control-lg col mb-3", id:"nombreUsuario", placeholder:"Nombre" %>
                           </div>
                           <div class="field">
-                            <%= f.email_field :email, autofocus: true, autocomplete: "lastname",class:"form-control form-control-lg col mb-3", id:"correoUsuario", placeholder:"Apellido" %>
+                            <%= f.text_field :lastname, autofocus: true, autocomplete: "lastname",class:"form-control form-control-lg col mb-3", id:"apellidoUsuario", placeholder:"Apellido" %>
                           </div>
 
 
@@ -42,14 +42,18 @@
                             <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control form-control-lg col mb-3",placeholder:"Confirme la contraseña" %>
                           </div>
                           <div class="field">
-                            <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control form-control-lg col mb-3", id:"cargoUsuario", placeholder:"Cargo" %>
+                            
                           </div>
                       </div>  
 
                       <div class="row justify-content-center col mb-3">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
+                          
                           <div class="actions">
-                            <%= f.submit "Registrar",type:"button",class:"btn btn-secondary", id:"btnRegistrar" %>
+                            <div class="field">
+                              <%= f.submit "Registrar",class:"btn btn-secondary", id:"btnRegistrar" %>
+                            </div>
+                            
                           </div>
                           <p> </p>
                         </div>  
