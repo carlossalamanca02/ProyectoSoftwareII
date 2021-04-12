@@ -24,7 +24,7 @@ default: &default
 
 development:
   adapter: mysql2
-  database: pruebausuarios 
+  database: pr2 
   username: root
   host: localhost
   password:

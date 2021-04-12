@@ -42,7 +42,11 @@
                             <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control form-control-lg col mb-3",placeholder:"Confirme la contraseña" %>
                           </div>
                           <div class="field">
-                            
+                              <%= f.select :job_name, class:"form-control form-control-lg col mb-3" do %>
+                                <% [['Instructor', 'Instructor'], ['Prestamos', 'Prestamos']].each do |c| -%>
+                                <%= content_tag(:option, c.first, value: c.last) %>
+                                <% end %>
+                              <% end %>
                           </div>
                       </div>  
 

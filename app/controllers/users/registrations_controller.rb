@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
    def create
      super
      puts "hoa"
-     puts "bjaha" + params[:user][:email] 
+     puts "bjaha" + params[:user][:job_name] 
    end
 
   # GET /resource/edit

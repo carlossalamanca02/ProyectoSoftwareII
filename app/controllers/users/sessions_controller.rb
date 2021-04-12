@@ -6,13 +6,20 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
    def new
      super
-      puts "Hola, como estas";
    end
 
   # POST /resource/sign_in
    def create
-     super
-    puts "hodasd"
+     #super
+     puts current_user.job_name
+      if current_user.job_name == 'Instructor'
+        redirect_to "/login/ah"
+      else
+        redirect_to "/login/oh"
+      end
+   end
+   def index
+     
    end
 
   # DELETE /resource/sign_out
