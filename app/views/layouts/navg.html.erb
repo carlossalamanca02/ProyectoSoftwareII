@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<html class="h-100">
+  <head>
+    <title>Gestion</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/styleGrupos.css" rel="stylesheet">
-    <title>Grupos</title>
-</head>
-<body class="h-100">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'modules.css', 'data-turbolinks-track': 'reload' %>
+  </head>
 
-<div class="row justify-content-start ">
+  <body class="h-100">
+  <div class="row justify-content-start ">
     <div class="col-sm-2">
         <div class="container-sm" id="barra">
             <div class="row justify-content-start col mb-3">
                 <div class="col aling-self-center">
-                    <img src="icon/uptc.jpg" width="110px" height="60px">
+                    <img src="<%=asset_path 'uptc.jpeg'%>" id="imagen" width="110px" height="60px">
                 </div>
             </div>
             <div class="row justify-content-start">
@@ -90,21 +92,7 @@
                 <h4 id="usuarioGrupo">Valentina Tinjaca</h4>
                 <h5 id="cargo">Instructor</h5>
             </div>
-            <div class="row justify-content-center col mb-3">
-                <div class="col-sm-9 aling-self-center">
-                    <div class="container" id="contenedorLogo">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-12 aling-self-center">
-                                <img src="icon/uptc.jpg" width="700px" height="350px">
-                            </div>
-                            <div class="col-sm-12 aling-self-center" style="text-align: center">
-                                <h2>Sistema de Gestión de grupos culturales</h2>
-                                <h2>UPTC-Seccional Sogamoso</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%= yield %>
             <div class="row justify-content-center">
                 <div class="col-sm-12 aling-self-center">
                     <div class="container" id="contenedorCredenciales">
@@ -122,9 +110,11 @@
     </div>
 
 </div>
+  
 
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </body>
 </html>
