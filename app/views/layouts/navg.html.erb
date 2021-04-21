@@ -23,7 +23,7 @@
                 <div class="col">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="Grupos.html">
+                            <a class="nav-link active" href="grupos.html">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Inicio</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-home"></i></div>
@@ -73,13 +73,15 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
+                        <li class="nav-item">         
+                            <% if user_signed_in? %>
                                 <div class="row">
-                                    <div class="col-sm-9 align-self-start">Salir</div>
+                                    
+                                    <div class="col-sm-9 align-self-start"><%= button_to "Cerrar sesion", destroy_user_session_path ,id:"sign-out", method: :delete,class:"nav-link"%>  
+                                    </div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-sign-out"></i></div>
                                 </div>
-                            </a>
+                            <%end%>
                         </li>
                     </ul>
                 </div>
@@ -89,7 +91,7 @@
     <div class="col-sm-10">
         <div class="container">
             <div class="container" id="contenedorUsuario">
-                <h4 id="usuarioGrupo">Valentina Tinjaca</h4>
+                <h4 id="usuarioGrupo"><%= @InstructorActual %></h4>
                 <h5 id="cargo">Instructor</h5>
             </div>
             <%= yield %>

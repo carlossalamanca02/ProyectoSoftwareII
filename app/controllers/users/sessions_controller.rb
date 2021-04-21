@@ -11,21 +11,22 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
    def create
      #super
-     puts current_user.job_name
+     
       if current_user.job_name == 'Instructor'
-        redirect_to "/login/ah"
+        redirect_to "/login/groups"
+        
       else
-        redirect_to "/login/oh"
+        redirect_to "/login/loan"
       end
    end
    def index
      
    end
-
+  
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  #def destroy
+    #super
+   #end
 
   # protected
 

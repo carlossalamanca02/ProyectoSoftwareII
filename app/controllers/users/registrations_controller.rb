@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
    def new
      super
      @user=User.new
-     puts "cdscd"
+    
    end
 
   # POST /resource

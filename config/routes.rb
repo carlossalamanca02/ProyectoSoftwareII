@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
 
 
-  get 'login/ah'
-  get 'login/oh'
+  get 'login/loan'
+  get 'login/groups'
+
   #get 'users/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

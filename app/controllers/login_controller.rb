@@ -1,13 +1,19 @@
 class LoginController < ApplicationController
-  layout "navg", only:[:ah,]
-  layout "navp", only:[:oh]
+
+  
+  #layout "navg", only:[:groups]
+  #layout "navp", only:[:loan]
+  
   def login
   end
 
-  def ah
+  def loan
+  	render layout: "navp";
   end
 
-  def oh
+  def groups
+  	@InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
+  	render layout: "navg";
   end
   
 end
