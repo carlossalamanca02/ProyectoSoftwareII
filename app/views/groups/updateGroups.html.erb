@@ -4,39 +4,33 @@
                         <div class="row justify-content-center">
                             <div class="col-sm-6">
                                 <h2 style="text-align: center">MODIFICAR GRUPO</h2>
-                                <form>
+                                <%= form_for :Group do |g| %>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-4 col mb-3">
-                                            <select class="form-control form-control-lg" id="codigoModificado">
-                                                <option>Grupo...</option>
-                                            </select>
+                                            <%= g.select :group_name do %>
+                                                <% Group.all.each do |c| -%>
+                                                    <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                                <% end %>
+                                            <% end %>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <button class="btn btn-secondary" id="aceptar">Aceptar</button>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button class="btn btn-secondary" type="reset">Limpiar</button>
-                                            <p></p>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input class="form-control form-control-lg col mb-3" id="nombreGrupoM" placeholder="Nombre">
+                                        <div class="col-sm-6">
+                                            <%= g.submit "Modificar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnModificar" %>
+                                            &nbsp
+                                            <%= g.submit "Limpiar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnLimpiar" %>
                                         </div>
                                         <div class="col-sm-8">
-                                            <select class="form-control form-control-lg col mb-3" id="idInstructorM">
-                                                <option>Instructor</option>
-                                            </select>
+                                            <%= g.text_field :groupName, autofocus: true, autocomplete: "groupName",class:"form-control form-control-lg col mb-3", id:"nombreGrupo", placeholder:"Nombre" %>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-sm-8">
                                             <div class="input-group">
                                                 <label class="col-sm-12" style="font-size: 20px">Descripción</label>
-                                                <textarea class="form-control form-control-lg col mb-3" id="descripciónGrupoM"></textarea>
+                                                <%= g.text_area :groupDescription, autofocus: true, autocomplete: "groupDescription",class:"form-control form-control-lg col mb-3", id:"descripcionGrupo" %>
                                             </div>
-
                                         </div>
                                     </div>
-                                </form>
+                                <% end %>
                             </div>
                             <div class="col-sm-6">
                                 <div class="container" style="background: rgba(225, 222, 215,0.4)">

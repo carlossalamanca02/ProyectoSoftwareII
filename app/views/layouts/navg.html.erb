@@ -23,7 +23,7 @@
                 <div class="col">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="grupos.html">
+                            <a class="nav-link active" href="/login/groups">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Inicio</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-home"></i></div>
@@ -32,7 +32,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="CrearGrupo.html">
+                            <a class="nav-link" href="/groups/createGroups">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Añadir</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-plus-circle"></i></div>
@@ -42,7 +42,7 @@
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link" href="BuscarGrupo.html">
+                            <a class="nav-link" href="/groups/searchGroups">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Buscar</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-search"></i></div>
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ModificarGrupo.html">
+                            <a class="nav-link" href="/groups/updateGroups">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Modificar</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-pencil"></i></div>
@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="EliminarGrupo.html">
+                            <a class="nav-link" href="/groups/deleteGroups">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Eliminar</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-trash"></i></div>
@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Participantes.html">
+                            <a class="nav-link" href="/groups/participants">
                                 <div class="row">
                                     <div class="col-sm-9 align-self-start">Participantes</div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-users"></i></div>
@@ -91,7 +91,7 @@
     <div class="col-sm-10">
         <div class="container">
             <div class="container" id="contenedorUsuario">
-                <h4 id="usuarioGrupo"><%= @InstructorActual %></h4>
+                <h4 id="usuarioGrupo"><%= @InstructorActual%></h4>
                 <h5 id="cargo">Instructor</h5>
             </div>
             <%= yield %>

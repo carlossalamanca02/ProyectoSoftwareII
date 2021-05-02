@@ -4,43 +4,31 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <h2 style="text-align: center">CREAR GRUPO</h2>
-                        <form>
+                        <%= form_with url: "/groups/createGroups", method: :get do |f| %>
                             <div class="row justify-content-center">
                                 <div class="col-sm-8 col mb-3">
-                                    <select class="form-control form-control-lg" id="codigoModificado">
-                                        <option>Grupo...</option>
-                                    </select>
+                                    <%= f.text_field :groupId, autofocus: true, autocomplete: "groupId",class:"form-control form-control-lg col mb-3", id:"idGrupo", placeholder:"Codigo" %>
                                 </div>
                                 <div class="col-sm-8">
-                                    <input class="form-control form-control-lg col mb-3" id="nombreGrupoM" placeholder="Nombre">
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="form-control form-control-lg col mb-3" id="idInstructorM">
-                                        <option>Instructor</option>
-                                    </select>
+                                    <%= f.text_field :groupName, autofocus: true, autocomplete: "groupName",class:"form-control form-control-lg col mb-3", id:"nombreGrupo", placeholder:"Nombre" %>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <label class="col-sm-12" style="font-size: 20px">Descripción</label>
-                                        <textarea class="form-control form-control-lg col mb-3" id="descripciónGrupoM"></textarea>
+                                        <%= f.text_area :groupDescription, autofocus: true, autocomplete: "groupDescription",class:"form-control form-control-lg col mb-3", id:"descripcionGrupo" %>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                                <div class="col-sm-2">
-                                    <button class="btn btn-secondary" id="aceptar">Aceptar</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button class="btn btn-secondary" type="reset">Limpiar</button>
-                                    <p></p>
-                                </div>
+                                <%= f.submit "Aceptar",class:"btn btn-secondary col-sm-2 mb-3", id:"btnAceptar" %>
+                                &nbsp
+                                <%= f.submit "Limpiar",class:"btn btn-secondary col-sm-2 mb-3", id:"btnLimpiar" %>
                             </div>
-                         </form>
+                        <% end %>
                     </div>
-
                 </div>
             </div>
         </div>
