@@ -3,46 +3,58 @@
                     <div class="container" id="contenedorLogo">
                         <h2 style="text-align: center">AÑADIR PARTICIPANTE</h2>
                         <div class="row justify-content-center col mb-3" >
-                            <div class="col-sm-6">
-                                <form>
+                            <div class="col-sm-6">   
+                            <%= form_with url: "/groups/Addparticipants" do |g| %> 
+                                <% if Group.where(user_id:current_user.id).count >0 %>
+                                            
                                     <div class="row justify-content-center">
                                         <div class="col-sm-12 col mb-3">
-                                            <select id="grupoParticipante" class="form-control form-control-lg">
-                                                <option>Grupo...</option>
+                                            <%= g.select :group_name, method: :put do %>
+                                                <% Group.where(user_id:current_user.id).each do |c| -%>
+                                                    <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <div class="col-sm-12 col mb-3">
+                                            <%= g.text_field :ParticipantCode, autofocus: true, autocomplete: "participantCode",class:"form-control form-control-lg", id:"codigoParticipante", placeholder:"Codigo" %>
+                                        </div>
+                                        <div class="col-sm-12 col mb-3">
+                                        <%= g.text_field :ParticipantName, autofocus: true, autocomplete: "participantName",class:"form-control form-control-lg", id:"nombreParticipante", placeholder:"Nombre y apellido" %>    
+                                        </div>
+                                        <div class="col-sm-12 col mb-3">
+                                            <select name="ParticipantCarrer"id="carreraParticipante" class="form-control form-control-lg">
+                                                <option value="1">Seleccione una carrera...</option>
+                                                <option value="2">Ing.Sistemas y computación</option>
+                                                <option value="3">Ing.Electronica</option>
+                                                <option value="4">Ing.Industrial</option>
+                                                <option value="5">Ing.Minas</option>
+                                                <option value="6">Finanzas y comercio internacional</option>
+                                                <option value="7">Administración de empresas</option>
+                                                <option value="8">Contaduria</option>
+                                                <option value="9">Administración industrial</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12 col mb-3">
-                                            <input id="codigoParticipante" class="form-control form-control-lg" placeholder="Codigo">
-                                        </div>
-                                        <div class="col-sm-12 col mb-3">
-                                            <input id="nombreParticipante" class="form-control form-control-lg" placeholder="Nombre">
-                                        </div>
-                                        <div class="col-sm-12 col mb-3">
-                                            <select id="carreraParticipante" class="form-control form-control-lg">
-                                                <option>carrera...</option>
-                                                <option>Ing.Sistemas y computación</option>
-                                                <option>Ing.Electronica</option>
-                                                <option>Ing.Industrial</option>
-                                                <option>Ing.Minas</option>
-                                                <option>Finanzas y comercio internacional</option>
-                                                <option>Administración de empresas</option>
-                                                <option>Contaduria</option>
-                                                <option>Administración industrial</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12 col mb-3">
-                                            <input id="correoParticipante" class="form-control form-control-lg" placeholder="Correo">
+                                        <%= g.email_field :ParticipantEmail, autofocus: true, autocomplete: "email",class:"form-control form-control-lg", id:"correoParticipante", placeholder:"Correo" %>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center col mb-3">
                                         <div class="col-sm-3">
-                                            <button class="btn btn-secondary">Aceptar</button>
+                                             <%= g.submit "Añadir",class:"btn btn-secondary", id:"btnModificar" %>
+                                            
                                         </div>
                                         <div class="col-sm-3">
                                             <button class="btn btn-secondary" type="reset">Limpiar</button>
                                         </div>
                                     </div>
-                                </form>
+
+                                <% end %>
+                                <% if Group.where(user_id:current_user.id).count == 0 %>
+                                    <p>No cuentas con grupos registrados</p>
+                                <% end %>
+                            
+                            
+                            <% end %>
                             </div>
                             <div class="col-sm-6">
                                 <div class="container" style="background: rgba(225, 222, 215,0.4)">

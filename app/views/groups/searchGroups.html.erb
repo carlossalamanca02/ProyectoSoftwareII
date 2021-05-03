@@ -4,20 +4,25 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col mb-3"><h2 style="text-align: center">BUSCAR GRUPO</h2></div>
                 <div class="col-sm-6">
-                    <%= form_for :Group do |g| %>
+                    <%= form_with url: "/groups/show" do |g| %>
                         <div class="row justify-content-center col mb-3">
-                            <div class="col-sm-6">
-                                <%= g.select :group_name do %>
-                                    <% Group.all.each do |c| -%>
-                                        <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                <% if Group.where(user_id:current_user.id).count >0 %>
+                                <div class="col-sm-6">
+                                    <%= g.select :group_name, method: :put do %>
+                                        <% Group.where(user_id:current_user.id).each do |c| -%>
+                                            <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                        <% end %>
                                     <% end %>
+                                </div>
+                                    <div class="col-sm-6">
+                                    <%= g.submit "Aceptar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnAceptar" %>
+                                    &nbsp
+                                    <button type="reset" class="btn btn-secondary col-sm-4 mb-3" id="btnLimpiar">Limpiar</button>
+                                </div> 
                                 <% end %>
-                            </div>
-                            <div class="col-sm-6">
-                                <%= g.submit "Aceptar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnAceptar" %>
-                                &nbsp
-                                <%= g.submit "Limpiar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnLimpiar" %>
-                            </div>                   
+                                <% if Group.where(user_id:current_user.id).count == 0 %>
+                                    <p>No cuentas con grupos registrados</p>
+                                <% end %>
                         </div>
                     <% end %>
                 </div>

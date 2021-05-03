@@ -4,22 +4,27 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col mb-3"><h2 style="text-align: center">ELIMINAR GRUPOS</h2></div>
                 <div class="col-sm-6">
-                    <%= form_for :Group do |g| %>
-                        <div class="row justify-content-center col mb-3">
+                <%= form_with url: "/groups/delete", method: :delete do |g| %>
+                    <div class="row justify-content-center col mb-3">
+                            <% if Group.where(user_id:current_user.id).count >0 %>
                             <div class="col-sm-6">
-                                <%= g.select :group_name do %>
-                                    <% Group.all.each do |c| -%>
+                                <%= g.select :group_name, method: :put do %>
+                                    <% Group.where(user_id:current_user.id).each do |c| -%>
                                         <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
                                     <% end %>
                                 <% end %>
                             </div>
-                            <div class="col-sm-6">
+                                <div class="col-sm-6">
                                 <%= g.submit "Eliminar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnEliminar" %>
                                 &nbsp
-                                <%= g.submit "Limpiar",class:"btn btn-secondary col-sm-4 mb-3", id:"btnLimpiar" %>
-                            </div>                   
-                        </div>
-                    <% end %>
+                                <button type="reset" class="btn btn-secondary col-sm-4 mb-3" id="btnLimpiar">Limpiar</button>
+                            </div> 
+                            <% end %>
+                            <% if Group.where(user_id:current_user.id).count == 0 %>
+                                <p>No cuentas con grupos registrados</p>
+                            <% end %>
+                    </div>
+                <% end %>
                 </div>
                 <div class="col-sm-6">
                     <div class="container" style="background: rgba(225, 222, 215,0.4)">
