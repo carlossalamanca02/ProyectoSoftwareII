@@ -8,6 +8,7 @@ class LoginController < ApplicationController
   end
 
   def loan
+    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
   	render layout: "navp";
   end
 

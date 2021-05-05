@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
         puts "No puedes dejar campos en blanco"
       end
     else
-      puts "El grupo ya existe"
+      redirect_to "/groups/createGroups", :flash =>{:alert => "El grupo ya existe"}
     end 
   end
   def show 
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
       @gr.destroy
       redirect_to "/groups/indexGroups"
     else
-      puts "No es posible realizar la eliminacion"
+      redirect_to "/groups/createGroups", :flash =>{:alert => "No fue posible eliminar el grupo"}
     end
   end
 
@@ -44,7 +44,7 @@ class GroupsController < ApplicationController
       end
       redirect_to "/groups/indexGroups"
     else
-      puts "Verifica los campos"
+      redirect_to "/groups/createGroups", :flash =>{:alert => "Revise los datos ingresados"}
     end
     
   end
@@ -54,14 +54,18 @@ class GroupsController < ApplicationController
       puts "añadir "
     else
       if params[:group_name].blank?
-        puts "Debes ingresar seleccionar un grupo"
+        redirect_to "/groups/createGroups", :flash =>{:alert => "Debes ingresar seleccionar un grupo"}
       elsif params[:ParticipantCode].blank?
+        redirect_to "/groups/createGroups", :flash =>{:alert => "Ingresa un codigo valido para el participante"}
         puts "Ingresa un codigo valido para el participante"
       elsif params[:ParticipantName].blank?
+        redirect_to "/groups/createGroups", :flash =>{:alert => "Ingresa un nombre para el participante"}
         puts "Ingresa un nombre para el participante"
       elsif params[:ParticipantEmail].blank? 
+        redirect_to "/groups/createGroups", :flash =>{:alert => "Ingresa un correo valido para el participante"}
         puts "Ingresa un correo valido para el participante"
       elsif params[:ParticipantCarrer] == "1"
+        redirect_to "/groups/createGroups", :flash =>{:alert => "Debes seleccionar una carrera"}
         puts "Debes seleccionar una carrera"
       end
     end

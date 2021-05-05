@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_222426) do
+ActiveRecord::Schema.define(version: 2021_05_04_104831) do
+
+  create_table "elements", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "quantity"
+    t.integer "avaliable"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -23,6 +32,28 @@ ActiveRecord::Schema.define(version: 2021_05_01_222426) do
 
   create_table "jobs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "loans", charset: "utf8mb4", force: :cascade do |t|
+    t.date "fecha"
+    t.time "Hsolicitud"
+    t.time "Hdevolucion"
+    t.bigint "user_id", null: false
+    t.bigint "element_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["element_id"], name: "index_loans_on_element_id"
+    t.index ["student_id"], name: "index_loans_on_student_id"
+    t.index ["user_id"], name: "index_loans_on_user_id"
+  end
+
+  create_table "students", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "carrer"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -43,4 +74,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_222426) do
   end
 
   add_foreign_key "groups", "users"
+  add_foreign_key "loans", "elements"
+  add_foreign_key "loans", "students"
+  add_foreign_key "loans", "users"
 end

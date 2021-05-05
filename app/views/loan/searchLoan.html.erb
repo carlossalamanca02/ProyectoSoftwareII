@@ -1,0 +1,54 @@
+<div class="row justify-content-center col mb-3">
+<div class="col-sm-12 aling-self-center">
+    <div class="container" id="contenedorLogo">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col mb-3"><h2 style="text-align: center">BUSCAR PRESTAMO</h2></div>
+            <div class="col-sm-6">
+                
+            <%=form_with url: "/loan/serch" do |g| %>
+                <div class="row justify-content-center col mb-3">
+                        <div class="col-sm-6">
+                            <%= g.select :student_id,class:"form-control form-control-lg col mb-3", method: :put do %>
+                                <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
+                                <% Student.all.each do |c| %>
+                                    <%= content_tag(:option, c.name << "--->" << c.id.to_s, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                        <div class="col-sm-3">
+                            <%= g.submit "Aceptar",class:"btn btn-secondary", id:"aceptar"%>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-secondary" type="reset">Limpiar</button>
+                        </div>
+                    </div>
+            
+            <%end%>
+            
+    
+
+
+
+
+
+            </div>
+            <div class="col-sm-6">
+                <div class="container" style="background: rgba(225, 222, 215,0.4)">
+                    <h5 style="text-align: center">PRESTAMOS</h5>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Estudiante</th>
+                            <th scope="col">Elemento</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tablaPrestamo">
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
