@@ -130,11 +130,23 @@ class LoanController < ApplicationController
 
  
   def actualizeLoan
-  
-  
+    if params[:loan_id] =="0" || params[:fecha].blank?  || params[:Hmodificada].blank? || params[:element_id] == "0"
+      if params[:loan_id] == "0"
+        redirect_to "/loan/updateLoan", :flash =>{:alert => "Debes identificar el prestamo a modificar"}
+      elsif params[:element_id] == "0"
+        redirect_to "/loan/updateLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
+      elsif params[:fecha].blank?
+        redirect_to "/loan/updateLoan", :flash =>{:alert => "Debes seleccionar una fecha"}
+      elsif params[:Hmodificada].blank?
+        redirect_to "/loan/updateLoan", :flash =>{:alert => "Debes seleccionar una hora"}
+      end
+    else
+      loanUpdate=Loan.find(params[:loan_id]);
+      loanUpdate.update(fecha:params[:fecha], Hsolicitud:params[:Hmodificada], element_id:params[:element_id])
+      redirect_to "/login/loan"
+    end
+
   end
-
-
 
 
   def createLoan
@@ -148,6 +160,7 @@ class LoanController < ApplicationController
 
   def updateLoan
     @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
+    @loansActive=Loan.where(Hdevolucion:nil);
   end
 
   def deleteLoan
