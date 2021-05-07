@@ -75,7 +75,6 @@
                         <li class="nav-item">         
                             <% if user_signed_in? %>
                                 <div class="row">
-                                    
                                     <div class="col-sm-9 align-self-start"><%= button_to "Cerrar sesion", destroy_user_session_path ,id:"sign-out", method: :delete,class:"nav-link"%>  
                                     </div>
                                     <div class="col-sm-3 align-self-end"><i class="fa fa-sign-out"></i></div>
@@ -91,7 +90,7 @@
     <div class="col-sm-10">
         <div class="container">
             <div class="container" id="contenedorUsuario">
-                <h4 id="usuarioPrestamo"><%= @InstructorActual%></h4>
+                <h4 id="usuarioPrestamo"><%= User.find(current_user.id).name+ " " +User.find(current_user.id).lastname %></h4>
                 <h5 id="cargo">Prestamo</h5>
             </div>
             <%= yield %>

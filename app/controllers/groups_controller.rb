@@ -76,33 +76,24 @@ class GroupsController < ApplicationController
 
 
   def indexGroups
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
   end
 
   def createGroups
     @GrNew=Group.new;
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
   end
 
   def searchGroups
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
     @ActGr= Group.new;
   end
 
   def updateGroups
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
-
   end
 
   def deleteGroups
-    
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
-    render layout: "navg";
+        render layout: "navg";
   end
 
   def participants
-    @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
-
   end
 
  
