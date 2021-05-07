@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_104831) do
+ActiveRecord::Schema.define(version: 2021_05_07_210712) do
 
   create_table "elements", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_104831) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "capacity"
+    t.integer "inscribed"
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
@@ -48,6 +50,16 @@ ActiveRecord::Schema.define(version: 2021_05_04_104831) do
     t.index ["element_id"], name: "index_loans_on_element_id"
     t.index ["student_id"], name: "index_loans_on_student_id"
     t.index ["user_id"], name: "index_loans_on_user_id"
+  end
+
+  create_table "records", charset: "utf8mb4", force: :cascade do |t|
+    t.date "fecha"
+    t.bigint "group_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_records_on_group_id"
+    t.index ["student_id"], name: "index_records_on_student_id"
   end
 
   create_table "students", charset: "utf8mb4", force: :cascade do |t|
@@ -77,4 +89,6 @@ ActiveRecord::Schema.define(version: 2021_05_04_104831) do
   add_foreign_key "loans", "elements"
   add_foreign_key "loans", "students"
   add_foreign_key "loans", "users"
+  add_foreign_key "records", "groups"
+  add_foreign_key "records", "students"
 end

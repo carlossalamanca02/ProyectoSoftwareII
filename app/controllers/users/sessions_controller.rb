@@ -16,7 +16,7 @@ class Users::SessionsController < Devise::SessionsController
         redirect_to "/login/groups"
         
       else
-        redirect_to "/login/loan"
+       redirect_to "/login/loan"
       end
    end
    def index

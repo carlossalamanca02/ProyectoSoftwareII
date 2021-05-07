@@ -1,16 +1,26 @@
 <div class="col-sm-6">
     <div class="container" style="background: rgba(225, 222, 215,0.4)">
         <h5 style="text-align: center">PRESTAMOS</h5>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Estudiante</th>
-                    <th scope="col">Elemento</th>
-                </tr>
-            </thead>
-            <tbody id="tablaPrestamo">
-            </tbody>
-        </table>
-
+        <% if Loan.where(user_id:current_user.id).count>0 %>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Estudiante</th>
+                        <th scope="col">Elemento</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPrestamo">
+                    <% Loan.where(user_id:current_user.id,Hdevolucion:nil).each do |c| -%>
+                        <tr>
+                            <td scope="col"><%=Student.find(c.student_id).name%></td>
+                            <td scope="col"><%=Element.find(c.element_id).name%></td>
+                        </tr>  
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
+        <% if Loan.where(user_id:current_user.id).count==0 %>
+            <p>No existen prestamos registrados</p>
+        <% end %>
     </div>
 </div>

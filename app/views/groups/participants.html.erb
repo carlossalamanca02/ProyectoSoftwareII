@@ -5,21 +5,43 @@
                         <div class="row justify-content-center col mb-3" >
                             <div class="col-sm-6">   
                             <%= form_with url: "/groups/Addparticipants" do |g| %> 
-                                <% if Group.where(user_id:current_user.id).count >0 %>
-                                            
+                                
+                                <% if Group.where(user_id:current_user.id).count >0 %>                
+                                    
+                                    
+                                    
+                                    
                                     <div class="row justify-content-center">
+                                       
+                                       
+                                       
                                         <div class="col-sm-12 col mb-3">
+                                            <label class="col-sm-12" style="font-size: 20px">Grupo</label>
                                             <%= g.select :group_name, method: :put do %>
+                                                <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
                                                 <% Group.where(user_id:current_user.id).each do |c| -%>
                                                     <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
                                                 <% end %>
                                             <% end %>
                                         </div>
                                         <div class="col-sm-12 col mb-3">
-                                            <%= g.text_field :ParticipantCode, autofocus: true, autocomplete: "participantCode",class:"form-control form-control-lg", id:"codigoParticipante", placeholder:"Codigo" %>
+                                            <label class="col-sm-12" style="font-size: 20px">Fecha inscripcion</label>
+                                            <%= g.date_field :fecha ,class:"form-control form-control-lg col mb-3", id:"fechaInscripcion" %>
                                         </div>
                                         <div class="col-sm-12 col mb-3">
-                                        <%= g.text_field :ParticipantName, autofocus: true, autocomplete: "participantName",class:"form-control form-control-lg", id:"nombreParticipante", placeholder:"Nombre y apellido" %>    
+                                            <label class="col-sm-12" style="font-size: 20px">Estudiante</label>
+                                            <%= g.select :student_id,class:"form-control form-control-lg col mb-3", method: :put do %>
+                                                <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
+                                                <% Student.all.each do |c| -%>
+                                                    <%= content_tag(:option, c.name << "--->" << c.id.to_s, value: c.id, class:"form-control form-control-lg col mb-3") %>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <div class="col-sm-12 col mb-3">
+                                            <%= g.number_field :ParticipantCode, autofocus: true, autocomplete: "participantCode",class:"form-control form-control-lg", id:"codigoParticipante", placeholder:"Codigo" %>
+                                        </div>
+                                        <div class="col-sm-12 col mb-3">
+                                        <%= g.text_field :ParticipantName, autofocus: true, autocomplete: "participantName",class:"form-control form-control-lg", id:"nombreParticipante", placeholder:"Nombre del estudiante" %>    
                                         </div>
                                         <div class="col-sm-12 col mb-3">
                                             <select name="ParticipantCarrer"id="carreraParticipante" class="form-control form-control-lg">
@@ -28,15 +50,18 @@
                                                 <option value="3">Ing.Electronica</option>
                                                 <option value="4">Ing.Industrial</option>
                                                 <option value="5">Ing.Minas</option>
-                                                <option value="6">Finanzas y comercio internacional</option>
-                                                <option value="7">Administración de empresas</option>
-                                                <option value="8">Contaduria</option>
-                                                <option value="9">Administración industrial</option>
+                                                <option value="6">Ing.Geologica</option>
+                                                <option value="7">Finanzas y comercio internacional</option>
+                                                <option value="8">Administración de empresas</option>
+                                                <option value="9">Contaduria publica</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12 col mb-3">
                                         <%= g.email_field :ParticipantEmail, autofocus: true, autocomplete: "email",class:"form-control form-control-lg", id:"correoParticipante", placeholder:"Correo" %>
                                         </div>
+
+
+
                                     </div>
                                     <div class="row justify-content-center col mb-3">
                                         <div class="col-sm-3">
@@ -47,6 +72,12 @@
                                             <button class="btn btn-secondary" type="reset">Limpiar</button>
                                         </div>
                                     </div>
+
+
+
+
+
+
 
                                 <% end %>
                                 <% if Group.where(user_id:current_user.id).count == 0 %>
