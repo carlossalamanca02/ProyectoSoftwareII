@@ -47,9 +47,18 @@ class LoanController < ApplicationController
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
           end
         else
-          Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
-          #redirect_to "/loan/createLoan", :flash =>{:alert => "Prestamo creado exitosamente"}
-          redirect_to "/login/loan"
+          elementaux=Element.find(params[:element_id])
+          if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
+            if Loan.find_by(student_id:params[:idSt]).nil?
+              Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
+              elementaux.update(avaliable:elementaux.avaliable-1)
+              redirect_to "/login/loan"
+            else
+              redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
+            end
+          else
+            redirect_to "/loan/createLoan", :flash =>{:alert => "No hay unidades de este elemento para prestar"}
+          end
         end
       else
         if params[:idSt].blank? || params[:nameSt].blank? || params[:carrerSt].blank? ||params[:emailSt].blank?
@@ -72,14 +81,46 @@ class LoanController < ApplicationController
               redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
             end
           else
-            Student.create(id:params[:idSt],name:params[:nameSt],carrer:params[:carrerSt],email:params[:emailSt])
-            Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
-            #redirect_to "/loan/createLoan", :flash =>{:alert => "Prestamo creado exitosamente"}
-            redirect_to "/login/loan"
-          end
-           
+            if params[:carrerSt] == "2"
+              puts "2"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Ing.Sistemas y computacion",email:params[:emailSt])
+            elsif params[:carrerStr] == "3"
+              puts "3"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Ing.Electronica",email:params[:emailSt])
+            elsif params[:carrerSt] == "4"
+              puts "4"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Ing.Industrial",email:params[:emailSt])
+            elsif params[:carrerSt] == "5"
+              puts "5"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Ing.Minas",email:params[:emailSt])
+            elsif params[:carrerSt] == "6"
+              puts "6"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Ing.Geologica",email:params[:emailSt])
+            elsif params[:carrerSt] == "7"
+              puts "7"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Finanzas y comercio internacional",email:params[:emailSt])
+            elsif params[:carrerSt] == "8"
+              puts "8"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Administracion de empresas",email:params[:emailSt])
+            elsif params[:carrerSt] == "9"  
+              puts "8"
+              Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Contaduria publica",email:params[:emailSt])
+            end
+
+            elementaux=Element.find(params[:element_id])
+            if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
+              if Loan.find_by(student_id:params[:idSt]).nil?
+                Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
+                elementaux.update(avaliable:elementaux.avaliable-1)
+                redirect_to "/login/loan"
+              else
+                redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
+              end
+            else
+              redirect_to "/loan/createLoan", :flash =>{:alert => "No hay unidades de este elemento para prestar"}
+            end
+          end   
         end
-        
       end
     else
       if !Student.find_by(id:params[:student_id]).nil?
@@ -92,9 +133,18 @@ class LoanController < ApplicationController
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
           end
         else
-          Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:student_id])
-          #redirect_to "/loan/createLoan", :flash =>{:alert => "Prestamo creado exitosamente"}
-          redirect_to "/login/loan"
+          elementaux=Element.find(params[:element_id])
+          if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
+            if Loan.find_by(student_id:params[:student_id]).nil?
+              Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:student_id])
+              elementaux.update(avaliable:elementaux.avaliable-1)
+              redirect_to "/login/loan"
+            else
+              redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
+            end
+          else
+            redirect_to "/loan/createLoan", :flash =>{:alert => "No hay unidades de este elemento para prestar"}
+          end
         end
       end
     end
@@ -114,7 +164,9 @@ class LoanController < ApplicationController
         redirect_to "/loan/deleteLoan", :flash =>{:alert => "Debes incluir una hora"}
       else
         prAct=Loan.find(params[:loan_id]);
-        prAct.update(Hdevolucion:params[:Hdevolucion])
+        prAct.update(Hdevolucion:params[:Hdevolucion]);
+        elementaux=Element.find(prAct.element_id);
+        elementaux.update(avaliable:elementaux.avaliable+1)
         redirect_to "/login/loan"
       end
     else
