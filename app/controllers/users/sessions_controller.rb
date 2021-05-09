@@ -11,12 +11,15 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
    def create
      #super
-     
-      if current_user.job_name == 'Instructor'
-        redirect_to "/login/groups"
-        
+      if  !current_user.nil?
+        if current_user.job_name == 'Instructor'
+          redirect_to "/login/groups"
+          
+        else
+        redirect_to "/login/loan"
+        end
       else
-       redirect_to "/login/loan"
+        redirect_to "/users/sign_in"
       end
    end
    def index

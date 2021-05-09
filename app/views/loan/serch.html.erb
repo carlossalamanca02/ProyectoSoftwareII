@@ -1,0 +1,31 @@
+<%if @opc==1%>
+    <h1>Informacion del prestamo</h1>
+    <table class="table">
+        <thead class="thead-dark"> 
+            <tr>
+                <th scope="col">Codigo estudiante</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo electronico</th>
+                <th scope="col">Elemento</th>
+                <th scope="col">Hora de solicitud</th>
+                <th scope="col">Prestado por</th>
+            </tr>
+        </thead>
+        <tbody id="tablaGrupos">
+            <% @estudiante.each do |c| -%>
+                <tr>
+                    <td scope="col"><%=c.id %></td>
+                    <td scope="col"><%=c.name%></td>
+                    <td scope="col"><%=c.email%></td>
+                    <td scope="col"><%=Element.find(@prestamo.element_id).name%></td>
+                    <td scope="col"><%=@prestamo.Hsolicitud%></td>
+                    <td scope="col"><%=User.find_by(id:@prestamo.user_id).name << " " <<User.find_by(id:@prestamo.user_id).lastname  %></td>
+                </tr>  
+            <%end%>
+        </tbody>
+    </table>
+<%end%>
+<%if @opc==2%>
+    <h3>El estudiante <%= @nombreE%>, no cuenta con prestamos registrados</h3>
+<%end%>
+

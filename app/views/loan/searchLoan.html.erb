@@ -9,7 +9,6 @@
                 <div class="row justify-content-center col mb-3">
                         <div class="col-sm-6">
                             <%= g.select :student_id,class:"form-control form-control-lg col mb-3", method: :put do %>
-                                <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
                                 <% Student.all.each do |c| %>
                                     <%= content_tag(:option, c.name << "--->" << c.id.to_s, value: c.id, class:"form-control form-control-lg col mb-3") %>
                                 <% end %>

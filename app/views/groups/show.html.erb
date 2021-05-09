@@ -1,0 +1,52 @@
+<h1>Informacion del grupo de <%=@grupo.name%></h1>
+<table class="table">
+    <thead class="thead-dark"> 
+        <tr>
+            <th scope="col">Nombre instructor</th>
+            <th scope="col">Correo electronico</th>
+            <th scope="col">Identificador de grupo</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Cupos</th>
+            <th scope="col">Inscritos</th>
+        </tr>
+    </thead>
+    <tbody id="tablaGrupos">
+        <% @instructor.each do |c| -%>
+            <tr>
+                <td scope="col"><%=c.name<< " " << c.lastname  %></td>
+                <td scope="col"><%=c.email%></td>
+                <td scope="col"><%=@grupo.id%></td>
+                <td scope="col"><%=@grupo.description%></td>
+                <td scope="col"><%=@grupo.capacity%></td>
+                <td scope="col"><%=@grupo.inscribed%></td>
+            </tr>  
+        <%end%>
+    </tbody>
+</table>
+<% if !@registro.empty? %>
+    <h1>Participantes</h1>
+    <table class="table">
+        <thead class="thead-dark"> 
+            <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Carrera</th>
+                <th scope="col">Correo electronico</th>
+            </tr>
+        </thead>
+        <tbody id="tablaGrupos">
+            <% @registro.each do |c| -%>
+                <tr>
+                    <td scope="col"><%=Student.find_by(id:c.student_id).id %></td>
+                    <td scope="col"><%=Student.find_by(id:c.student_id).name%></td>
+                    <td scope="col"><%=Student.find_by(id:c.student_id).carrer%></td>
+                    <td scope="col"><%=Student.find_by(id:c.student_id).email%></td>
+
+                </tr>  
+            <%end%>
+        </tbody>
+    </table>
+<%end%>
+<% if @registro.empty? %>
+    <p>No hay estudiantes registrados</p>
+<%end%>

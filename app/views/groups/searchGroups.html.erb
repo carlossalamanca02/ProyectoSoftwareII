@@ -25,8 +25,16 @@
                                 <% end %>
                         </div>
                     <% end %>
+
+                    
                 </div>
                 <%= render "/layouts/tableGroups" %>
+                <div class="col-sm-6">
+                    <%=puts @resultados %>
+                    <% if @resultados == 1%>
+                        <p>hola</p>
+                    <%end%>
+                <div>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'loan/updateLoan'
   get 'loan/deleteLoan'
   get 'loan/Inventary'
+  get 'loan/serchLoan'
   post 'loan/AddElement'
   post 'loan/AddLoan'
   post 'loan/serch'

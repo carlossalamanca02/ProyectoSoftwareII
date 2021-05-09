@@ -1,5 +1,6 @@
 class LoanController < ApplicationController
   layout "navp"
+
   def AddElement
     if params[:commit] == "Aceptar"
       if params[:id].blank? == false && params[:name].blank? == false && params[:description].blank? == false && params[:quantity].blank? == false
@@ -24,36 +25,34 @@ class LoanController < ApplicationController
     else
       puts "aqui se elemina"
     end
-
-
-
-
-
-
-
-    
-
   end
 
   def AddLoan
     if params[:student_id] == "0"
       if !Student.find_by(id:params[:idSt]).nil?
-        if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id].blank?
-          if params[:fecha].blank?
+        if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id] == "0"
+          if params[:element_id] == "0"
+            redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
+          elsif params[:fecha].blank?
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una fecha para el prestamo"}
           elsif params[:Hsolicitud].blank?
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una hora para el prestamo"}
-          elsif params[:element_id].blank?
-            redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
           end
         else
           elementaux=Element.find(params[:element_id])
           if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
-            if Loan.find_by(student_id:params[:idSt]).nil?
+            active=0;
+            Loan.where(student_id:params[:idSt]).each do |c| 
+              if c.Hdevolucion.nil?
+                active=1;
+              end
+            end
+            if active == 0
               Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
               elementaux.update(avaliable:elementaux.avaliable-1)
               redirect_to "/login/loan"
-            else
+            end
+            if active == 1 
               redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
             end
           else
@@ -72,13 +71,13 @@ class LoanController < ApplicationController
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes ingresar un correo electronico de estudiante para realizar un registro"}
           end
         else
-          if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id].blank?
-            if params[:fecha].blank?
+          if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id] == "0"
+            if params[:element_id] == "0"
+              redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}       
+            elsif params[:fecha].blank?
               redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una fecha para el prestamo"}
             elsif params[:Hsolicitud].blank?
               redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una hora para el prestamo"}
-            elsif params[:element_id].blank?
-              redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
             end
           else
             if params[:carrerSt] == "2"
@@ -106,14 +105,20 @@ class LoanController < ApplicationController
               puts "8"
               Student.create(id:params[:idSt],name:params[:nameSt],carrer:"Contaduria publica",email:params[:emailSt])
             end
-
             elementaux=Element.find(params[:element_id])
             if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
-              if Loan.find_by(student_id:params[:idSt]).nil?
+              active=0;
+              Loan.where(student_id:params[:idSt]).each do |c| 
+                if c.Hdevolucion.nil?
+                  active=1;
+                end
+              end
+              if active == 0
                 Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:idSt])
                 elementaux.update(avaliable:elementaux.avaliable-1)
                 redirect_to "/login/loan"
-              else
+              end
+              if active == 1 
                 redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
               end
             else
@@ -124,22 +129,29 @@ class LoanController < ApplicationController
       end
     else
       if !Student.find_by(id:params[:student_id]).nil?
-        if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id].blank?
-          if params[:fecha].blank?
+        if params[:fecha].blank? || params[:Hsolicitud].blank? || params[:element_id] == "0"
+          if params[:element_id] == "0"
+            redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
+          elsif params[:fecha].blank?
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una fecha para el prestamo"}
           elsif params[:Hsolicitud].blank?
             redirect_to "/loan/createLoan", :flash =>{:alert => "Debes una hora para el prestamo"}
-          elsif params[:element_id].blank?
-            redirect_to "/loan/createLoan", :flash =>{:alert => "Debes seleccionar un elemento a prestar"}
           end
         else
           elementaux=Element.find(params[:element_id])
           if elementaux.quantity>=elementaux.avaliable && elementaux.avaliable>0
-            if Loan.find_by(student_id:params[:student_id]).nil?
+            active=0;
+            Loan.where(student_id:params[:student_id]).each do |c| 
+              if c.Hdevolucion.nil?
+                active=1;
+              end
+            end
+            if active == 0
               Loan.create(fecha:params[:fecha],Hsolicitud:params[:Hsolicitud],user_id:current_user.id,element_id:params[:element_id],student_id:params[:student_id])
               elementaux.update(avaliable:elementaux.avaliable-1)
               redirect_to "/login/loan"
-            else
+            end
+            if active == 1 
               redirect_to "/loan/createLoan", :flash =>{:alert => "Este estudiante ya tiene activo un prestamo"}
             end
           else
@@ -149,15 +161,21 @@ class LoanController < ApplicationController
       end
     end
   end
-  
-
-
 
   def serch
-    puts params[:student_id]
+    if !Loan.find_by(student_id:params[:student_id],Hdevolucion:nil).nil?
+      @opc=1;
+      @estudiante=Student.where(id:params[:student_id]);
+      @prestamo=Loan.find_by(student_id:params[:student_id],Hdevolucion:nil);
+      puts params[:student_id]
+    else
+      @opc=2;
+      Student.where(id:params[:student_id]).each do |c|
+        @nombreE=c.name
+      end
+    end
   end
-  
-  
+
   def removeLoan
     if params[:loan_id] != "0"
       if params[:Hdevolucion].blank?
@@ -172,15 +190,8 @@ class LoanController < ApplicationController
     else
       redirect_to "/loan/deleteLoan", :flash =>{:alert => "Debes seleccionar un prestamo"}
     end
-    
   end
 
-
-
-
-
-
- 
   def actualizeLoan
     if params[:loan_id] =="0" || params[:fecha].blank?  || params[:Hmodificada].blank? || params[:element_id] == "0"
       if params[:loan_id] == "0"
@@ -197,10 +208,8 @@ class LoanController < ApplicationController
       loanUpdate.update(fecha:params[:fecha], Hsolicitud:params[:Hmodificada], element_id:params[:element_id])
       redirect_to "/login/loan"
     end
-
   end
-
-
+  
   def createLoan
     @InstructorActual=User.find(current_user.id).name+ " " +User.find(current_user.id).lastname;
     @PrNew= Loan.new

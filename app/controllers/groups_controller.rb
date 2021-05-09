@@ -1,7 +1,6 @@
 class GroupsController < ApplicationController
-  
   layout "navg"
-
+  
   def create
     idUsuario=current_user.id;
     if Group.find_by(id:params[:group][:id]).nil?
@@ -15,10 +14,17 @@ class GroupsController < ApplicationController
       redirect_to "/groups/createGroups", :flash =>{:alert => "El grupo ya existe"}
     end 
   end
-  def show 
 
-    puts Group.find_by(user_id:current_user.id)
+  def show 
+    if !Group.find(params[:group_name]).nil?
+      @grupo=Group.find(params[:group_name]);
+      @instructor=User.find([@grupo.user_id]);
+      @registro=Record.where(group_id:params[:group_name]);
+    else
+      redirect_to "/groups/serchGroups", :flash =>{:alert => "No hay informacion disponible"}
+    end
   end
+
   def destroy
     if !Group.find_by(id:params[:group_name]).nil?
       @gr=Group.find(params[:group_name])
@@ -152,8 +158,6 @@ class GroupsController < ApplicationController
           else
             redirect_to "/groups/participants", :flash =>{:alert => "No hay cupos diponibles en el grupo"}
           end
-          #Record.create(fecha:params[:fecha],group_id:params[:group_name],student_id:params[:student_id])
-          #redirect_to "/login/groups"
         end
       end
     end
@@ -179,6 +183,4 @@ class GroupsController < ApplicationController
 
   def participants
   end
-
- 
 end

@@ -1,6 +1,4 @@
 class LoginController < ApplicationController
-
-  
   #layout "navg", only:[:groups]
   #layout "navp", only:[:loan]
   
