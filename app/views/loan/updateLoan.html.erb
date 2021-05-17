@@ -6,53 +6,61 @@
                     <h2 style="text-align: center">MODIFICAR PRESTAMO</h2>
                 </div>
                 <div class="col-sm-6">
-                    <h2 style="text-align: center">MODIFICAR</h2>     
+                    <h2 style="text-align: center">MODIFICAR</h2>
                     <%=form_with url: "/loan/actualizeLoan" do |g| %>
                         <div class="row justify-content-center">
                             <div class="col-sm-8">
                                 <label class="col-sm-12" style="font-size: 20px">Prestamo</label>
                                 <%= g.select :loan_id, method: :put do %>
-                                    <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
-                                    <% @loansActive.each do |c| %>
-                                        <%= content_tag(:option, c.student_id.to_s<< " ---> " << c.fecha.to_s<< " ---> " << c.Hsolicitud.to_s, value: c.id, class:"form-control form-control-lg col mb-3") %>
-                                    <% end %>
-                                <% end %>
+                                    <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control
+                                        form-control-lg col mb-3") %>
+                                        <% @loansActive.each do |c| %>
+                                            <%= content_tag(:option, c.student_id.to_s<< " ---> " <<
+                                                c.fecha.to_s<< " ---> " << c.Hsolicitud.to_s, value: c.id,
+                                                class:"form-control form-control-lg col mb-3") %>
+                                                <% end %>
+                                                    <% end %>
                             </div>
                             <div class="col-sm-8">
-                                 <label class="col-sm-12" style="font-size: 20px">Elemento</label>
-                                <%= g.select :element_id,class:"form-control form-control-lg col mb-3", method: :put do %>
-                                   <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
-                                    <% Element.all.each do |c| %>
-                                        <%= content_tag(:option, c.name, value: c.id, class:"form-control form-control-lg col mb-3") %>
-                                    <% end %>
-                                 <% end %>
+                                <label class="col-sm-12" style="font-size: 20px">Elemento</label>
+                                <%= g.select :element_id,class:"form-control form-control-lg col mb-3", method: :put do
+                                    %>
+                                    <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control
+                                        form-control-lg col mb-3") %>
+                                        <% Element.all.each do |c| %>
+                                            <%= content_tag(:option, c.name, value: c.id, class:"form-control
+                                                form-control-lg col mb-3") %>
+                                                <% end %>
+                                                    <% end %>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <label class="col-sm-12" style="font-size: 20px">Fecha</label>
-                                    <%= g.date_field :fecha ,class:"form-control form-control-lg col mb-3", style:"font-size: 20px", id:"fechaPrestamo" %>
+                                    <%= g.date_field :fecha ,class:"form-control form-control-lg col mb-3",
+                                        style:"font-size: 20px", id:"fechaPrestamo" %>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <label class="col-sm-12" style="font-size: 20px">Hora</label>
-                                    <%= g.time_field :Hmodificada ,class:"form-control form-control-lg col mb-3", id:"horaPrestamo" %>
+                                    <%= g.time_field :Hmodificada ,class:"form-control form-control-lg col mb-3",
+                                        id:"horaPrestamo" %>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-sm-4">
-                                <%= g.submit "Aceptar",class:"btn btn-secondary", id:"btnAceptar" %>
+                                <%= g.submit "Aceptar" ,class:"btn btn-secondary", id:"btnAceptar" %>
                             </div>
                             <div class="col-sm-4">
                                 <button class="btn btn-secondary" type="reset">Limpiar</button>
                                 <p></p>
                             </div>
                         </div>
-                    <%end%>
-                </div>     
+                        <%end%>
+                </div>
                 <%= render "/layouts/tableLoan" %>
             </div>
         </div>

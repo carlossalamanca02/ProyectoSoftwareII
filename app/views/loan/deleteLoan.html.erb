@@ -6,33 +6,37 @@
                     <h2 style="text-align: center">REGISTRAR DEVOLUCIÓN</h2>
                 </div>
                 <div class="col-sm-6">
-                   
+
                     <%=form_with url: "/loan/removeLoan" do |g| %>
                         <div class="row justify-content-center col mb-3">
                             <div class="col-sm-12 col mb-3">
- 
+
                                 <%= g.select :loan_id, method: :put do %>
-                                    <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control form-control-lg col mb-3") %>
-                                    <% @loansActive.each do |c| %>
-                                        <%= content_tag(:option, c.student_id.to_s<< " ---> " << c.fecha.to_s<< " ---> " << c.Hsolicitud.to_s, value: c.id, class:"form-control form-control-lg col mb-3") %>
-                                    <% end %>
-                                <% end %>
+                                    <%= content_tag(:option, "Seleccione" , value: 0 , class:"form-control
+                                        form-control-lg col mb-3") %>
+                                        <% @loansActive.each do |c| %>
+                                            <%= content_tag(:option, c.student_id.to_s<< " ---> " <<
+                                                c.fecha.to_s<< " ---> " << c.Hsolicitud.to_s, value: c.id,
+                                                class:"form-control form-control-lg col mb-3") %>
+                                                <% end %>
+                                                    <% end %>
                             </div>
                             <div class="col-sm-12 col mb-3">
                                 <div class="input-group">
                                     <label class="col-sm-12" style="font-size: 20px">Hora devolución</label>
-                                    <%= g.time_field :Hdevolucion ,class:"form-control form-control-lg", id:"horaDevolucion" %>
+                                    <%= g.time_field :Hdevolucion ,class:"form-control form-control-lg",
+                                        id:"horaDevolucion" %>
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <%= g.submit "Eliminar",class:"btn btn-secondary", id:"aceptar"%>
+                                <%= g.submit "Eliminar" ,class:"btn btn-secondary", id:"aceptar"%>
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-secondary" type="reset">Limpiar</button>
                             </div>
                         </div>
-                    <%end%>
-                
+                        <%end%>
+
 
                 </div>
                 <%= render "/layouts/tableLoan" %>

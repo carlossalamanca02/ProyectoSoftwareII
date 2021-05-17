@@ -1,6 +1,8 @@
 class LoanController < ApplicationController
+  #Se le indica al sistema que todas las funciones de este controlador usaran el layout navp por defecto
   layout "navp"
-
+#Función encargada de añadir un elemento. Valida que se haya presionado el botó aceptar, obtiene los parametros de la vista Inventary
+#valida que que los datos sean correctos
   def AddElement
     if params[:commit] == "Aceptar"
       if params[:id].blank? == false && params[:name].blank? == false && params[:description].blank? == false && params[:quantity].blank? == false
@@ -26,7 +28,8 @@ class LoanController < ApplicationController
       puts "aqui se elemina"
     end
   end
-
+#Función encargada de añadir un prestamo. Obtiene los parametros de la vista createLoan
+#valida que que los datos sean correctos y envia los datos a la base de datos. 
   def AddLoan
     if params[:student_id] == "0"
       if !Student.find_by(id:params[:idSt]).nil?
@@ -161,7 +164,8 @@ class LoanController < ApplicationController
       end
     end
   end
-
+#Función encargada de buscar un prestamo. Valida que se haya presionado el botó aceptar, obtiene los parametros de la vista searchLoan
+#valida que que los datos sean correctos
   def serch
     if !Loan.find_by(student_id:params[:student_id],Hdevolucion:nil).nil?
       @opc=1;
@@ -175,7 +179,8 @@ class LoanController < ApplicationController
       end
     end
   end
-
+#Función encargada de eliminar un prestamo. Valida que se haya presionado el botó aceptar, obtiene los parametros de la vista deleteLoan
+#valida que que los datos sean correctos
   def removeLoan
     if params[:loan_id] != "0"
       if params[:Hdevolucion].blank?
@@ -191,7 +196,8 @@ class LoanController < ApplicationController
       redirect_to "/loan/deleteLoan", :flash =>{:alert => "Debes seleccionar un prestamo"}
     end
   end
-
+#Función encargada de eliminar un elemento. Valida que se haya presionado el botó aceptar, obtiene los parametros de la vista updateLoan
+#valida que que los datos sean correctos
   def actualizeLoan
     if params[:loan_id] =="0" || params[:fecha].blank?  || params[:Hmodificada].blank? || params[:element_id] == "0"
       if params[:loan_id] == "0"

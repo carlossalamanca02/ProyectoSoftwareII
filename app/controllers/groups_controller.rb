@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   layout "navg"
-  
+  #Función encargada de la creación de los prestamos, la cual toma los parametros de la interfaz, valida que sean correstos 
+  #envia la información a la base de datos y en respuesta redirige al la vista de inicio grupos
   def create
     idUsuario=current_user.id;
     if Group.find_by(id:params[:group][:id]).nil?
@@ -14,7 +15,8 @@ class GroupsController < ApplicationController
       redirect_to "/groups/createGroups", :flash =>{:alert => "El grupo ya existe"}
     end 
   end
-
+#Metodo encargardo de buscar grupo por medio del nombre. Toma los parametros de la vista searchGroup, valida que sean correctos
+#envia los datos a la base
   def show 
     if !Group.find(params[:group_name]).nil?
       @grupo=Group.find(params[:group_name]);
@@ -24,7 +26,8 @@ class GroupsController < ApplicationController
       redirect_to "/groups/serchGroups", :flash =>{:alert => "No hay informacion disponible"}
     end
   end
-
+#Metodo encargado de eliminar el grupo por medio del nombre. Toma los parametros de la vista deleteGroup, valida que sean correctos
+#envia la petición de eliminar a la base de datos y redirige a la misma vista. 
   def destroy
     if !Group.find_by(id:params[:group_name]).nil?
       @gr=Group.find(params[:group_name])
@@ -34,7 +37,8 @@ class GroupsController < ApplicationController
       redirect_to "/groups/createGroups", :flash =>{:alert => "No fue posible eliminar el grupo"}
     end
   end
-
+#Metodo encargado de actualizar los grupos, el cual toma los parametros de la vista UpdateGroups, valida que sean correstos
+#envia la información a la base de datos. 
   def update 
     if !params[:groupName].blank? || !params[:groupDescription].blank? || !params[:capacity].blank?
       @GrUpd=Group.find(params[:group_name]);

@@ -1,38 +1,42 @@
 <div class="row justify-content-center">
     <div class="col-sm-6">
         <h2 style="text-align: center">ELEMENTO</h2>
-        <%= form_with url: "/loan/AddElement" do |g| %> 
+        <%= form_with url: "/loan/AddElement" do |g| %>
             <div class="row justify-content-center">
                 <div class="col-sm-8 col mb-3">
-                    <%= g.number_field :id, autofocus: true, autocomplete: "ElementCode",class:"form-control form-control-lg", id:"idNewElemento", placeholder:"Codigo" %>
+                    <%= g.number_field :id, autofocus: true, autocomplete: "ElementCode" ,class:"form-control
+                        form-control-lg", id:"idNewElemento", placeholder:"Codigo" %>
                 </div>
                 <div class="col-sm-8 col mb-3">
-                    <%= g.text_field :name, autofocus: true, autocomplete: "ElementName",class:"form-control form-control-lg", id:"nombreNewElemento", placeholder:"Nombre" %>
+                    <%= g.text_field :name, autofocus: true, autocomplete: "ElementName" ,class:"form-control
+                        form-control-lg", id:"nombreNewElemento", placeholder:"Nombre" %>
                 </div>
                 <div class="col-sm-8 col mb-3">
-                    <%= g.number_field :quantity, autofocus: true, autocomplete: "ElementAvaliable",class:"form-control form-control-lg", id:"avaliableNewElemento", placeholder:"Cantidad de elementos" %>
+                    <%= g.number_field :quantity, autofocus: true, autocomplete: "ElementAvaliable" ,class:"form-control
+                        form-control-lg", id:"avaliableNewElemento", placeholder:"Cantidad de elementos" %>
                 </div>
                 <div class="col-sm-8 col mb-3">
                     <div class="input-group">
                         <label class="col-sm-12" style="font-size: 20px">Descripción</label>
-                        <%= g.text_area :description, autofocus: true, autocomplete: "ElementDescription",class:"form-control form-control-lg", id:"desNewElemento" %>
+                        <%= g.text_area :description, autofocus: true, autocomplete: "ElementDescription",
+                            class:"form-control form-control-lg", id:"desNewElemento" %>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-sm-4">
-                    <%= g.submit "Aceptar",class:"btn btn-secondary", id:"aceptar"%>
+                    <%= g.submit "Aceptar" ,class:"btn btn-secondary", id:"aceptar"%>
                 </div>
                 <div class="col-sm-4">
-                    <%= g.submit "Eliminar",class:"btn btn-secondary", id:"eliminar", commit:"eliminar" %>   
+                    <%= g.submit "Eliminar" ,class:"btn btn-secondary", id:"eliminar", commit:"eliminar" %>
                 </div>
                 <div class="col-sm-4">
                     <button class="btn btn-secondary" type="reset">Limpiar</button>
                     <p></p>
                 </div>
             </div>
-        <% end %>
-        
+            <% end %>
+
     </div>
     <div class="col-sm-6">
         <div class="container" style="background: rgba(225, 222, 215,0.4)">
@@ -41,13 +45,18 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Elemento</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Cantidad disponible</th>
+                        <th scope="col">Cantidad total</th>
                     </tr>
                 </thead>
                 <tbody id="tablaElementos">
+                    <% Element.all.each do |c|%>
+                        <td><%=c.name%></th>
+                        <td><%=c.avaliable%></th>
+                        <td><%=c.quantity%></th>
+                    <% end %>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
